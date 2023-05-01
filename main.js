@@ -3,16 +3,16 @@ const btnKeyboard = {
         "rows": ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0","-", "=", "Backspace",
         "Tab", "Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P", "[", "]", "\\", "DEL",
         "Caps Lock", "A", "S", "D", "F", "G", "H", "J", "K", "L", 	";", "\"", "ENTER",
-        "Shift", "\\", "Z", "X", "C", "V", "B", "N", "M", ".", ",","/", " ⇧ ", "Shift",
-        "Ctrl", "Win", "Alt", " ", "Alt", "Ctrl", "⇦", "⇩", 	" ⇨"]
+        "Shift", "\\", "Z", "X", "C", "V", "B", "N", "M", ".", ",","/", "\u21EE", "Shift",
+        "Ctrl", "Win", "Alt", " ", "Alt", "Ctrl", "\u21E6", "\u21D3", 	" \u21E8"]
       },
 
       "ru" : {
         "rows": ["`", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0","-", "=", "Backspace",
         "Tab", "Й", "Ц", "У", "К", "Е", "Н", "Г", "Ш", "Щ", "З", "{", "}", "|", "DEL",
       "Caps Lock", "Ф", "Ы", "В", "А", "П", "Р", "О", "Л", "Д", 	":", "''", "ENTER",
-        "Shift", "\u005C", "Я", "Ч", "С", "М", "И", "Т", "M", ".", "\\", "/", "⇧ ", "Shift",
-        "Ctrl", "Win", "Alt", " ", "Alt", "Ctrl", "⇦", "⇩", "⇨"]
+        "Shift", "\u005C", "Я", "Ч", "С", "М", "И", "Т", "M", ".", "\\", "/", "\u21EE", "Shift",
+        "Ctrl", "Win", "Alt"," ", " ", "Alt", "Ctrl", "\u21E6", "\u21D3", "\u21E8"]
       }
 }
 
@@ -28,27 +28,31 @@ keyboard.className = 'keyboard';
 body.append(keyboard);
 
 let lang = document.createElement('div');
-lang.className = 'lang__keyboard';
+lang.className = 'lang';
 keyboard.append(lang);
 
 let getlang =  document.createElement('select');
 getlang.className = 'lang';
 lang.append(getlang);
 
-let selectEn =  document.createElement('option');
-selectEn.value = 'eng';
-selectEn.textContent = 'Eng';
-getlang.append(selectEn);
+let langEn =  document.createElement('option');
+langEn.className = 'lang'
+langEn.value = 'eng';
+langEn.textContent = 'Eng';
+getlang.append(langEn);
 
-let selectRu =  document.createElement('option');
-selectRu.value = 'ru';
-selectRu.textContent = 'Rus';
-getlang.append(selectRu);
+let langRu =  document.createElement('option');
+langRu.className = 'lang'
+langRu.value = 'ru';
+langRu.textContent = 'Rus';
+getlang.append(langRu);
 
 let fieldForText = document.createElement('textarea');
 fieldForText.setAttribute("type", "text");
 fieldForText.className = 'fieldForText';
 keyboard.append(fieldForText);
+fieldForText.focus()
+
 
 let keyContainer = document.createElement('div');
 keyContainer.className = 'keyContainer';
@@ -104,21 +108,21 @@ for (let i=0; i<=64; i++) {
     }
     if(i>41 && i <= 55){
         if (i===42) {btnKey.classList.add('shift-left')}
-        if (i===54) {btnKey.classList.add ('arrow-up')}
+        if (i===54) {btnKey.classList.add('arrow-up')}
         if (i===55) {btnKey.classList.add('shift-right')}
         btnKey.textContent = btnKeyboard[getlang.value].rows[i];
         rowsKeyboard[3].append(btnKey);
     }
     if (i>55) {
-    if (i===56) {btnKey.className = 'btnKey ctrl ctrl-left'}
-    if (i===57) {btnKey.className = 'btnKey win'}
-    if (i===58) {btnKey.className = 'btnKey alt-left'}
-    if (i===59) {btnKey.className = 'btnKey space'}
-    if (i===60) {btnKey.className = 'btnKey alt-right'}
-    if (i===61) {btnKey.className = 'btnKey ctrl-right'}
-    if (i===612) {btnKey.className = 'btnKey arrow-left'}
-    if (i===63) {btnKey.className = 'btnKey arrow-down'}
-    if (i===64) {btnKey.className = 'btnKey arrow-right'}
+        if (i===56) {btnKey.classList.add('ctrl-left')}
+        if (i===57) {btnKey.classList.add('win')}
+        if (i===58) {btnKey.classList.add ('alt-left')}
+        if (i===59) {btnKey.classList.add ('space')}
+        if (i===60) {btnKey.classList.add ('alt-right')}
+        if (i===61) {btnKey.classList.add ('ctrl-right')}
+        if (i===62) {btnKey.classList.add ('arrow-left')}
+        if (i===63) {btnKey.classList.add ('arrow-down')}
+        if (i===64) {btnKey.classList.add ('arrow-right')}
     btnKey.textContent = btnKeyboard[getlang.value].rows[i];
     rowsKeyboard[4].append(btnKey)};
 }
@@ -171,9 +175,6 @@ btnAll.forEach(btnValue => {
         btnValue.classList.add('active');
     })
     btnValue.addEventListener('mouseup', function (event) {
-        // if (btnValue.getAttribute('name' === 'Ctrl')){
-        //     btnValue.classList.add('active');
-        // }
         btnValue.classList.remove('active');
         btnValue.classList.add('remove');
         getSymbol (btnValue);
@@ -189,7 +190,9 @@ function getSymbol (btnValue) {
     } else if (btnValue.getAttribute('name') === 'Backspace') {
         fieldForText.textContent = (fieldForText.textContent).substring(0, (fieldForText.textContent).length-1)
     } 
-    else if (btnValue.getAttribute('name') === ''){}
+    else if (btnValue.getAttribute('name') === 'Shift'|| 
+    btnValue.getAttribute('name') === 'Ctrl'
+    ||btnValue.getAttribute('name') === 'Alt'){''}
     else if (btnValue.getAttribute('name') === 'Tab') {
         fieldForText.textContent += String.fromCharCode(9);
     } else if (btnValue.getAttribute('name') === 'ENTER') {
@@ -198,7 +201,7 @@ function getSymbol (btnValue) {
         fieldForText.textContent += String.fromCharCode(32);
     } else if (btnValue.getAttribute('name') === 'Win') {
         win.addEventListener('click', (event) => {
-            event.code = 91;
+            event.code = 32;
         })
     } else  if (btnValue.getAttribute('name') == 'DEL') {
        fieldForText.textContent = (fieldForText.textContent).substring(0, (fieldForText.textContent).length-1)

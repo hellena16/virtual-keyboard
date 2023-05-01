@@ -20,15 +20,14 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 15px;
 }
 .keyboard {
-  width: 80%;
+  width: 75%;
   background-color: rgb(211, 206, 206);
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-.keyContainer {
 }
 
 .row-keyboard {
@@ -37,8 +36,8 @@ body {
 }
 
 .btnKey {
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,21 +51,25 @@ body {
 .backspace,
 .caps-lock,
 .enter {
-  width: 160px;
+  width: 120px;
 }
-
+.lang {
+  align-self: flex-end;
+  height: 30px;
+  border: none;
+  background-color: rgb(211, 206, 206);
+}
 .tab,
 .del {
-  width: 90px;
+  width: 80px;
 }
 
 .shift-left {
-  width: 160px;
+  width: 120px;
 }
 
 .space {
-  max-width: 500px;
-  width: 100%;
+  width: 450px;
 }
 
 .fieldForText {
@@ -78,6 +81,7 @@ body {
   padding: 10px;
   transition: 0.2s;
   resize: none;
+  cursor: auto;
 }
 
 .active {
@@ -101,4 +105,3 @@ body {
     color: white;
   }
 }
-
