@@ -1,0 +1,107 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.title {
+  color: rgb(211, 206, 206);
+}
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 15px;
+}
+.keyboard {
+  width: 75%;
+  background-color: rgb(211, 206, 206);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.row-keyboard {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnKey {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: grey;
+  color: #fff;
+  margin: 4px;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.backspace,
+.caps-lock,
+.enter {
+  width: 120px;
+}
+.lang {
+  align-self: flex-end;
+  height: 30px;
+  border: none;
+  background-color: rgb(211, 206, 206);
+}
+.tab,
+.del {
+  width: 80px;
+}
+
+.shift-left {
+  width: 120px;
+}
+
+.space {
+  width: 450px;
+}
+
+.fieldForText {
+  width: 98%;
+  height: 20vh;
+  font-size: 20px;
+  background-color: white;
+  border: none;
+  padding: 10px;
+  transition: 0.2s;
+  resize: none;
+  cursor: auto;
+}
+
+.active {
+  background-color: rgb(236, 227, 227);
+  color: grey;
+  animation: keys_animation 2s linear;
+}
+
+@keyframes keys_animation {
+  0% {
+    background-color: rgb(236, 227, 227);
+    color: grey;
+  }
+  50% {
+    background-color: rgb(187, 181, 181);
+    color: rgb(196, 191, 191);
+  }
+
+  100% {
+    background-color: grey;
+    color: white;
+  }
+}
