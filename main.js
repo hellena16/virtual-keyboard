@@ -59,6 +59,22 @@ function setLocalStorage() {
   localStorage.setItem('text', fieldForText.value);
 }
 
+function getLocalStorage() {
+  if (localStorage.getItem('lang')) {
+    getlang.value = localStorage.getItem('lang');
+  }
+  if (localStorage.getItem('text')) {
+    fieldForText.value = localStorage.getItem('text');
+  }
+}
+
+window.addEventListener('beforeunload', setLocalStorage);
+getLocalStorage();
+
+getlang.addEventListener ('change', () => {
+    location.reload()
+})
+
 for (let i=0; i<5; i++) {
     let rowKeyboard = document.createElement('div');
     rowKeyboard.className = 'row-keyboard';
@@ -107,3 +123,89 @@ for (let i=0; i<=64; i++) {
     rowsKeyboard[4].append(btnKey)};
 }
 
+let btnAll = document.querySelectorAll('.btnKey');
+let backspace = document.querySelector('.backspace');
+let tab = document.querySelector('.tab');
+let del = document.querySelector('.del');
+let capsLock = document.querySelector('.caps-lock');
+let enter = document.querySelector('.enter');
+let shiftLeft = document.querySelector('.shift-left');
+let shiftRight = document.querySelector('.shift-right');
+let ctrlLeft = document.querySelector('.ctrl-left');
+let ctrlRight = document.querySelector('.ctrl-right');
+let arrowUp = document.querySelector('.arrow-up');
+let arrowLeft = document.querySelector('.arrow-left');
+let arrowDown = document.querySelector('.arrow-down');
+let arrowRight = document.querySelector('.arrow-right');
+let altLeft = document.querySelector('.alt-left');
+let altRigth = document.querySelector('.alt-right');
+let win = document.querySelector('.win');
+let space = document.querySelector('.space');
+
+
+
+for (let i=0; i<btnAll.length; i++) {
+    btnAll[i].setAttribute("name", btnAll[i].innerText);
+    btnAll[i].setAttribute("btnValue", btnAll[i].innerText.toLowerCase());
+}
+
+window.addEventListener('keydown', function (event) {
+    for (let i=0; i<btnAll.length; i++) {
+        if (event.key === btnAll[i].getAttribute('name')|| event.key == btnAll[i].getAttribute('btnValue')) {
+            btnAll[i].classList.add('active');
+            btnAll[i].classList.remove('remove');
+        }
+    }
+})
+window.addEventListener('keyup', function(event) {
+    for (let i=0; i<btnAll.length; i++) {
+        if (event.key == btnAll[i].getAttribute('name') || event.key == btnAll[i].getAttribute('btnValue')) {
+            btnAll[i].classList.remove('active');
+            btnAll[i].classList.add('remove');
+        }
+    }
+})
+
+btnAll.forEach(btnValue => {
+    btnValue.addEventListener('mousedown', function () {
+        btnValue.classList.add('active');
+    })
+    btnValue.addEventListener('mouseup', function (event) {
+        // if (btnValue.getAttribute('name' === 'Ctrl')){
+        //     btnValue.classList.add('active');
+        // }
+        btnValue.classList.remove('active');
+        btnValue.classList.add('remove');
+        getSymbol (btnValue);
+    })
+})
+
+function getSymbol (btnValue) {
+    if (btnValue.getAttribute('name') == 'Caps Lock') {
+        capsLock.addEventListener('click', () => {
+            fieldForText.textContent = fieldForText.textContent; 
+        capsLock.classList.toggle('active')
+        })
+    } else if (btnValue.getAttribute('name') === 'Backspace') {
+        fieldForText.textContent = (fieldForText.textContent).substring(0, (fieldForText.textContent).length-1)
+    } 
+    else if (btnValue.getAttribute('name') === ''){}
+    else if (btnValue.getAttribute('name') === 'Tab') {
+        fieldForText.textContent += String.fromCharCode(9);
+    } else if (btnValue.getAttribute('name') === 'ENTER') {
+        fieldForText.textContent += String.fromCharCode(13);
+    } else if (btnValue.getAttribute('name') === '') {
+        fieldForText.textContent += String.fromCharCode(32);
+    } else if (btnValue.getAttribute('name') === 'Win') {
+        win.addEventListener('click', (event) => {
+            event.code = 91;
+        })
+    } else  if (btnValue.getAttribute('name') == 'DEL') {
+       fieldForText.textContent = (fieldForText.textContent).substring(0, (fieldForText.textContent).length-1)
+    } else {
+        if (capsLock.classList.contains('active')) {
+            fieldForText.textContent += btnValue.getAttribute('name');
+        } else {fieldForText.textContent += btnValue.getAttribute('btnValue');}
+
+    }
+}
